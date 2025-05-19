@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "commonjs", // or "esnext" depending on your setup
+    "moduleResolution": "node",
+    "types": ["mocha", "node", "@wdio/globals/types"]
+  }
+}

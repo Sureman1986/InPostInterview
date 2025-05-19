@@ -1,0 +1,22 @@
+{
+  "qa": {
+    "standardUser": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "lockedUser": {
+      "username": "lockerd_out_user",
+      "password": "secret_sauce"
+    },
+    "problemUser" :{
+      "username": "problem_user",
+      "password": "secret_sauce"
+    }
+  },
+  "prod": {
+    "standardUser": {
+      "username": "prod_user",
+      "password": "prod_pass"
+    }
+  }
+}
