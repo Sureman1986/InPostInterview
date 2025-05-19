@@ -125,7 +125,7 @@ export const config: WebdriverIO.Config = {
     
     //
     // The number of times to retry the entire specfile when it fails as a whole
-    // specFileRetries: 1,
+    specFileRetries: 2,  //LSz: set Retires to: 2
     //
     // Delay in seconds between the spec file retry attempts
     // specFileRetriesDelay: 0,
@@ -144,7 +144,6 @@ export const config: WebdriverIO.Config = {
         ui: 'bdd',
         timeout: 60000
     },
-
     //
     // =====
     // Hooks

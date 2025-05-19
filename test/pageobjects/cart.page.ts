@@ -46,6 +46,7 @@ class CartPage extends Page {
     private async verifyCheckOutOverviewAndFinish(products: Product[]) {
         products.forEach((cartItem) => {
             Checkers.checkIfElementVisible(format(this.cartItemDescriptionByProductName, cartItem.name, cartItem.description));
+            Checkers.checkIfElementVisible(format(this.cartItemPriceByProductName, cartItem.price));
         })
         await this.clickWithScroll(this.finishBtn, 1);
     }
@@ -78,6 +79,7 @@ class CartPage extends Page {
     private topCartQuantityXpath= this.topCart + '//android.widget.TextView';
     private cartItemByProductName = '//android.widget.TextView[@text="%s"]';
     private cartItemDescriptionByProductName = this.cartItemByProductName + '/following-sibling::android.widget.TextView[@text="%s"]';
+    private cartItemPriceByProductName = this.cartItemByProductName + '/following-sibling::android.widget.TextView[@text="%s"]';
     private removeCartItemByProductNameBtn = '//android.view.ViewGroup[@content-desc="test-Item"][.//android.widget.TextView[@text="%s"]]//android.view.ViewGroup[@content-desc="test-REMOVE"]';
     private checkoutBtn = '//android.view.ViewGroup[@content-desc="test-CHECKOUT"]';
     private firstNameInpt = '//android.widget.EditText[@content-desc="test-First Name"]';

@@ -28,6 +28,9 @@ describe('Sauce Lab Purchase Flow', () => {
         helpers.log('STARTING FILTER VALIDATION');
         await ProductsPage.filterBy('Name (Z to A)');
         await ProductsPage.checkIfProductVisible(products.SauceLabsOnesie);
+        //filter Price (high to low) and validate
+        await ProductsPage.filterBy('Price (high to low)');
+        await ProductsPage.checkIfProductVisible(products.SauceLabsFleeceJacket);
         //validate cart items
         await CartPage.goToCart();
         helpers.log('STARTING CART VALIDATING');
