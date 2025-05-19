@@ -29,6 +29,23 @@ export default class Helpers {
         //we could add here additional waiting for spinners if needed
     }
 
+    public async clickWithScroll(accessibilityId: string, howManySwipes: number = 2) {
+        // Scroll to the element using accessibility ID strategy
+        await driver.execute('mobile: scroll', {
+            strategy: 'accessibility id',
+            selector: accessibilityId,
+            maxSwipes: howManySwipes
+        });
+
+        const el = await $(`~${accessibilityId}`);
+        await el.waitForExist({ timeout: 5000 });
+        await el.waitForDisplayed({ timeout: 5000 });
+
+        await this.log(`Clicking Element: ${accessibilityId}`);
+        await el.click(); // or use touchAction if click fails
+    }
+
+
     public async typeInText(locator: string, value: string) {
         //our wrapper for setValue method
         const el = await this.getElement(locator);

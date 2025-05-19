@@ -6,6 +6,7 @@ import products from '../testData/products.json';
 import addresses from '../testData/address.json';
 import Helpers from "../support/Helpers";
 import {expect} from "@wdio/globals";
+import Checkers from "../support/Checkers";
 const helpers = new Helpers();
 
 //here we are getting desired user basing on env. on which we are testing
@@ -40,7 +41,9 @@ describe('Sauce Lab Purchase Flow', () => {
         await CartPage.verifyCheckoutInformationPage();
         //checkout
         await CartPage.checkoutCart(addresses.LeszekAddress, [products.SauceLabsBikeLight]);
-        await helpers.pause(10000);
+        await CartPage.validateFinishPageAndGoHome();
+        //Check if after clicking Back Home button, user was navigated to products page
+        await ProductsPage.validateProductPage();
     });
 });
 

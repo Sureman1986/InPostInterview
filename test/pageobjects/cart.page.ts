@@ -1,6 +1,7 @@
 import Page from "./page";
 import Checkers from "../support/Checkers";
 import {format} from "util";
+import {expect} from "@wdio/globals";
 
 interface Product {
     name: string;
@@ -16,7 +17,7 @@ interface Address {
 
 class CartPage extends Page {
     public async goToCart() {
-        this.click(this.topCart);
+        await this.click(this.topCart);
     }
 
     public async returnCartQuantity() {
@@ -39,14 +40,21 @@ class CartPage extends Page {
         await this.typeInText(this.lastNameInpt, address.lastName);
         await this.typeInText(this.zipPostalInpt, address.zipPostal);
         await this.click(this.continueBtn);
-        this.verifyCheckOutOverviewAndFinish(products)
+        await this.verifyCheckOutOverviewAndFinish(products)
     }
 
     private async verifyCheckOutOverviewAndFinish(products: Product[]) {
         products.forEach((cartItem) => {
             Checkers.checkIfElementVisible(format(this.cartItemDescriptionByProductName, cartItem.name, cartItem.description));
         })
-        await this.click(this.finishBtn);
+        await this.clickWithScroll(this.finishBtn, 1);
+    }
+
+    public async validateFinishPageAndGoHome() {
+        await expect(Checkers.checkIfElementVisible(this.checkoutComplete)).toBeTruthy();
+        await expect(Checkers.checkIfElementVisible(this.thxForYourOrderTxt)).toBeTruthy();
+        await expect(Checkers.checkIfElementVisible(this.finishImage)).toBeTruthy();
+        await this.click(this.backHomeBtn);
     }
 
     public async verifyCheckoutInformationPage() {
@@ -78,7 +86,11 @@ class CartPage extends Page {
     private continueBtn = '//android.widget.TextView[@text="CONTINUE"]';
     private cancelbtn ='//android.view.ViewGroup[@content-desc="test-CANCEL"]';
     private errorMessageByText = '//android.widget.TextView[@text="%s"]';
-    private finishBtn = '//android.view.ViewGroup[@content-desc="test-FINISH"]';
+    private finishBtn = 'test-FINISH';
+    private checkoutComplete = '//android.widget.ScrollView[@content-desc="test-CHECKOUT: COMPLETE!"]'
+    private thxForYourOrderTxt= '//android.widget.TextView[@text="THANK YOU FOR YOU ORDER"]';
+    private finishImage= '//android.widget.ScrollView[@content-desc="test-CHECKOUT: COMPLETE!"]/android.view.ViewGroup/android.widget.ImageView'
+    private backHomeBtn = '//android.view.ViewGroup[@content-desc="test-BACK HOME"]'
 }
 
 export default new CartPage();
